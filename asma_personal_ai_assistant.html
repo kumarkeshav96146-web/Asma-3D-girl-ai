@@ -1,0 +1,608 @@
+<!-- ... existing code ... -->
+            <!-- Multi-Tab Tactical Dock: Priorities | Automation Hub | Memory Vault | Focus & Notes -->
+            <div class="hud-panel hud-corners rounded-2xl p-4 flex-1 flex flex-col">
+                <!-- Dock Tabs -->
+                <div class="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-950/90 border border-cyan-500/20 mb-3">
+                    <button onclick="switchDockTab('automation')" id="tab-btn-automation"
+                        class="py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 transition-all flex items-center justify-center gap-1">
+                        <i data-lucide="cpu" class="w-3 h-3 text-emerald-400"></i>
+                        <span>AUTO HUB</span>
+                    </button>
+                    <button onclick="switchDockTab('priorities')" id="tab-btn-priorities"
+                        class="py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider text-slate-400 hover:text-cyan-200 transition-all">
+                        PRIORITIES
+                    </button>
+                    <button onclick="switchDockTab('memory')" id="tab-btn-memory"
+                        class="py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider text-slate-400 hover:text-cyan-200 transition-all">
+                        MEMORY
+                    </button>
+                    <button onclick="switchDockTab('focus')" id="tab-btn-focus"
+                        class="py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider text-slate-400 hover:text-cyan-200 transition-all">
+                        FOCUS
+                    </button>
+                </div>
+
+                <!-- TAB 0: ALL-APP AUTOMATION HUB -->
+                <div id="dock-panel-automation" class="flex-1 flex flex-col">
+                    <!-- Sub-Navigation Pills for 5 Automation Engines -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-2.5 border-b border-cyan-500/15 no-scrollbar">
+                        <button onclick="switchAutoEngine('youtube')" id="auto-pill-youtube"
+                            class="shrink-0 px-2.5 py-1.5 rounded-lg bg-rose-500/20 border border-rose-400/50 text-rose-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all">
+                            <i data-lucide="youtube" class="w-3.5 h-3.5 text-rose-400"></i> YouTube
+                        </button>
+                        <button onclick="switchAutoEngine('whatsapp')" id="auto-pill-whatsapp"
+                            class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-emerald-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all">
+                            <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i> WhatsApp
+                        </button>
+                        <button onclick="switchAutoEngine('calling')" id="auto-pill-calling"
+                            class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all">
+                            <i data-lucide="phone-call" class="w-3.5 h-3.5 text-cyan-400"></i> Calling
+                        </button>
+                        <button onclick="switchAutoEngine('camera')" id="auto-pill-camera"
+                            class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-purple-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all">
+                            <i data-lucide="camera" class="w-3.5 h-3.5 text-purple-400"></i> Camera AI
+                        </button>
+                        <button onclick="switchAutoEngine('apps')" id="auto-pill-apps"
+                            class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-amber-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all">
+                            <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i> All Apps & Macros
+                        </button>
+                    </div>
+
+                    <!-- ENGINE 1: YOUTUBE AUTOMATION -->
+                    <div id="auto-engine-youtube" class="space-y-2.5 flex-1 flex flex-col">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-hud text-rose-300 tracking-wider">YOUTUBE STUDIO AUTOMATION</span>
+                            <a href="https://studio.youtube.com" target="_blank" rel="noopener noreferrer"
+                                class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 border border-rose-400/40 text-rose-200 hover:bg-rose-500/30">
+                                Open Studio ↗
+                            </a>
+                        </div>
+                        <input type="text" id="yt-topic-input" placeholder="Video topic likhein (e.g., 'AI se paise kaise kamayein')..."
+                            class="w-full bg-slate-950/85 border border-rose-500/30 focus:border-rose-400 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="runYouTubeAutomation('full')"
+                                class="px-3 py-2 rounded-xl bg-gradient-to-r from-rose-500/25 to-orange-500/25 hover:from-rose-500/35 hover:to-orange-500/35 border border-rose-400/50 text-rose-100 text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-rose-300"></i> Title + SEO + Script
+                            </button>
+                            <button onclick="searchYouTubeTopic()"
+                                class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-[11px] font-mono flex items-center justify-center gap-1.5 transition-all active:scale-95">
+                                <i data-lucide="search" class="w-3.5 h-3.5 text-rose-400"></i> Search YouTube
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 pt-1">
+                            <button onclick="downloadLastYouTubeScript()"
+                                class="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-950/90 hover:bg-rose-500/15 border border-rose-500/25 text-[10px] font-mono text-rose-200 flex items-center justify-center gap-1">
+                                <i data-lucide="download" class="w-3 h-3"></i> Download Script (.txt)
+                            </button>
+                            <button onclick="runYouTubeAutomation('shorts')"
+                                class="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-950/90 hover:bg-amber-500/15 border border-amber-500/25 text-[10px] font-mono text-amber-200 flex items-center justify-center gap-1">
+                                <i data-lucide="zap" class="w-3 h-3"></i> 60s Shorts Hook
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ENGINE 2: WHATSAPP AUTOMATION -->
+                    <div id="auto-engine-whatsapp" class="hidden space-y-2.5 flex-1 flex-col">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-hud text-emerald-300 tracking-wider">WHATSAPP DIRECT ENGINE</span>
+                            <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer"
+                                class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">
+                                WhatsApp Web ↗
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <input type="text" id="wa-phone-input" value="+91" placeholder="+919876543210"
+                                class="col-span-1 bg-slate-950/85 border border-emerald-500/30 rounded-xl px-2.5 py-2 text-xs font-mono text-emerald-200 focus:outline-none">
+                            <input type="text" id="wa-msg-input" placeholder="Message ya topic likhein..."
+                                class="col-span-2 bg-slate-950/85 border border-emerald-500/30 rounded-xl px-3 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none">
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="aiRewriteWhatsApp('Professional')"
+                                class="flex-1 py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-emerald-500/15 border border-emerald-500/30 text-[10px] font-mono text-emerald-200">
+                                ✨ AI Polish
+                            </button>
+                            <button onclick="aiRewriteWhatsApp('Follow-Up')"
+                                class="flex-1 py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-cyan-500/15 border border-cyan-500/30 text-[10px] font-mono text-cyan-200">
+                                🔁 Follow-Up
+                            </button>
+                            <button onclick="launchWhatsAppDirect()"
+                                class="flex-1 py-1.5 px-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-[11px] font-hud font-bold flex items-center justify-center gap-1 shadow-[0_0_12px_rgba(16,185,129,0.4)]">
+                                <i data-lucide="send" class="w-3 h-3"></i> SEND
+                            </button>
+                        </div>
+                        <!-- Instant Templates -->
+                        <div class="flex gap-1.5 overflow-x-auto pt-0.5 no-scrollbar">
+                            <button onclick="fillWATemplate('Namaste! Kya hum aaj call par connect kar sakte hain?')"
+                                class="shrink-0 px-2 py-1 rounded bg-slate-950 border border-slate-800 text-[10px] text-slate-400 hover:text-emerald-200">
+                                + Call Request
+                            </button>
+                            <button onclick="fillWATemplate('Hi, main ek meeting mein hoon. Thodi der mein wapas call karta hoon.')"
+                                class="shrink-0 px-2 py-1 rounded bg-slate-950 border border-slate-800 text-[10px] text-slate-400 hover:text-emerald-200">
+                                + Busy Auto-Reply
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ENGINE 3: CALLING & DIALER AUTOMATION -->
+                    <div id="auto-engine-calling" class="hidden space-y-2.5 flex-1 flex-col">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-hud text-cyan-300 tracking-wider">SMART CALLING & DIALER</span>
+                            <span class="text-[10px] font-mono text-slate-400">1-TAP TEL PROTOCOL</span>
+                        </div>
+                        <form onsubmit="saveSpeedDialContact(event)" class="grid grid-cols-12 gap-1.5">
+                            <input type="text" id="call-name-input" placeholder="Name" required
+                                class="col-span-4 bg-slate-950/85 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 text-xs text-slate-100 focus:outline-none">
+                            <input type="tel" id="call-number-input" placeholder="+91..." required
+                                class="col-span-5 bg-slate-950/85 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 text-xs font-mono text-cyan-200 focus:outline-none">
+                            <button type="submit"
+                                class="col-span-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 text-[11px] font-mono font-bold">
+                                + ADD
+                            </button>
+                        </form>
+                        <ul id="speed-dial-list" class="space-y-1.5 max-h-32 overflow-y-auto pr-1"></ul>
+                    </div>
+
+                    <!-- ENGINE 4: CAMERA & GEMINI VISION SCANNER -->
+                    <div id="auto-engine-camera" class="hidden space-y-2 flex-1 flex-col">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-hud text-purple-300 tracking-wider">LIVE CAMERA VISION AI</span>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="startCameraFeed()" id="cam-start-btn"
+                                    class="px-2 py-0.5 rounded bg-purple-500/25 border border-purple-400/50 text-[10px] font-mono text-purple-200">
+                                    START CAM
+                                </button>
+                                <button onclick="stopCameraFeed()" id="cam-stop-btn"
+                                    class="hidden px-2 py-0.5 rounded bg-rose-500/25 border border-rose-400/50 text-[10px] font-mono text-rose-200">
+                                    STOP
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Live Video Viewport with HUD Crosshair -->
+                        <div class="relative w-full h-32 rounded-xl bg-slate-950 border border-purple-500/30 overflow-hidden flex items-center justify-center">
+                            <video id="hud-camera-video" autoplay playsinline muted class="w-full h-full object-cover hidden"></video>
+                            <canvas id="hud-camera-canvas" class="hidden"></canvas>
+                            <div id="cam-placeholder" class="text-center p-2">
+                                <i data-lucide="scan-line" class="w-6 h-6 text-purple-400 mx-auto mb-1 opacity-75"></i>
+                                <p class="text-[10px] font-mono text-slate-400">Camera on karein ya image upload karke AI scan karein</p>
+                            </div>
+                            <!-- Reticle Overlay -->
+                            <div class="absolute inset-3 border border-purple-400/30 rounded-lg pointer-events-none"></div>
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="captureAndAnalyzeCamera()"
+                                class="flex-1 py-1.5 px-2.5 rounded-xl bg-gradient-to-r from-purple-500/30 to-cyan-500/30 hover:from-purple-500/40 hover:to-cyan-500/40 border border-purple-400/50 text-[11px] font-mono font-bold text-purple-100 flex items-center justify-center gap-1.5">
+                                <i data-lucide="aperture" class="w-3.5 h-3.5 text-purple-300"></i> SCAN & ANALYZE
+                            </button>
+                            <label class="py-1.5 px-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[10px] font-mono text-slate-300 cursor-pointer flex items-center gap-1">
+                                <i data-lucide="upload" class="w-3 h-3"></i> Photo
+                                <input type="file" accept="image/*" onchange="handleImageFileUpload(event)" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ENGINE 5: ALL-APP LAUNCHER & CUSTOM MACROS -->
+                    <div id="auto-engine-apps" class="hidden space-y-2.5 flex-1 flex-col">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-hud text-amber-300 tracking-wider">ALL-APP LAUNCHER & MACROS</span>
+                            <span class="text-[10px] font-mono text-amber-400/80">1-CLICK FLOWS</span>
+                        </div>
+
+                        <!-- App Grid -->
+                        <div class="grid grid-cols-4 gap-1.5">
+                            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-rose-500/15 border border-slate-800 hover:border-rose-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="youtube" class="w-4 h-4 text-rose-400"></i> YouTube
+                            </a>
+                            <a href="https://web.whatsapp.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-emerald-500/15 border border-slate-800 hover:border-emerald-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i> WhatsApp
+                            </a>
+                            <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-cyan-500/15 border border-slate-800 hover:border-cyan-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i> Gmail
+                            </a>
+                            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-pink-500/15 border border-slate-800 hover:border-pink-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i> Insta
+                            </a>
+                            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-emerald-500/15 border border-slate-800 hover:border-emerald-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-emerald-300"></i> Maps
+                            </a>
+                            <a href="https://calendar.google.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-blue-500/15 border border-slate-800 hover:border-blue-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="calendar" class="w-4 h-4 text-blue-400"></i> Calendar
+                            </a>
+                            <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-green-500/15 border border-slate-800 hover:border-green-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="music" class="w-4 h-4 text-green-400"></i> Spotify
+                            </a>
+                            <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer"
+                                class="p-2 rounded-xl bg-slate-950/90 hover:bg-amber-500/15 border border-slate-800 hover:border-amber-400/40 flex flex-col items-center gap-1 text-[10px] font-mono text-slate-300">
+                                <i data-lucide="hard-drive" class="w-4 h-4 text-amber-400"></i> Drive
+                            </a>
+                        </div>
+
+                        <!-- Multi-Step Smart Macros -->
+                        <div class="pt-1 border-t border-amber-500/15 space-y-1.5">
+                            <span class="text-[10px] font-mono text-amber-300 block">SMART MULTI-STEP MACROS:</span>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <button onclick="executeSmartMacro('morning')"
+                                    class="p-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-left text-[10px] font-mono text-amber-100">
+                                    ⚡ Morning Command<br><span class="text-[9px] text-amber-300/75">Priorities + Schedule</span>
+                                </button>
+                                <button onclick="executeSmartMacro('creator')"
+                                    class="p-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/40 text-left text-[10px] font-mono text-rose-100">
+                                    🎬 Creator Blast<br><span class="text-[9px] text-rose-300/75">YT Script + Insta Caption</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 1: Daily 3-Priority Tactical Tracker -->
+                <div id="dock-panel-priorities" class="hidden flex-1 flex-col">
+<!-- ... existing code ... -->
+            <!-- Quick Action Command Chips -->
+            <div class="px-3 py-2.5 border-b border-cyan-500/15 bg-slate-900/40 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                <button onclick="openAutoHubEngine('youtube')"
+                    class="shrink-0 px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/40 text-xs font-medium text-rose-200 flex items-center gap-1.5 transition-all active:scale-95">
+                    <i data-lucide="youtube" class="w-3.5 h-3.5 text-rose-400"></i>
+                    YouTube Auto
+                </button>
+
+                <button onclick="openAutoHubEngine('whatsapp')"
+                    class="shrink-0 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/40 text-xs font-medium text-emerald-200 flex items-center gap-1.5 transition-all active:scale-95">
+                    <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    WhatsApp Auto
+                </button>
+
+                <button onclick="openAutoHubEngine('calling')"
+                    class="shrink-0 px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-xs font-medium text-cyan-200 flex items-center gap-1.5 transition-all active:scale-95">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    Calling Auto
+                </button>
+
+                <button onclick="openAutoHubEngine('camera')"
+                    class="shrink-0 px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-400/40 text-xs font-medium text-purple-200 flex items-center gap-1.5 transition-all active:scale-95">
+                    <i data-lucide="camera" class="w-3.5 h-3.5 text-purple-400"></i>
+                    Camera AI
+                </button>
+
+                <button onclick="openAutoHubEngine('apps')"
+                    class="shrink-0 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-xs font-medium text-amber-200 flex items-center gap-1.5 transition-all active:scale-95">
+                    <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
+                    All Apps & Macros
+                </button>
+            </div>
+<!-- ... existing code ... -->
+        function switchDockTab(tabName) {
+            ['automation', 'priorities', 'memory', 'focus'].forEach(t => {
+                const panel = document.getElementById(`dock-panel-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (!panel || !btn) return;
+                if (t === tabName) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('flex');
+                    btn.className = "py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 transition-all flex items-center justify-center gap-1";
+                } else {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('flex');
+                    btn.className = "py-1.5 px-1.5 rounded-lg text-[10px] sm:text-[11px] font-hud font-bold tracking-wider text-slate-400 hover:text-cyan-200 transition-all flex items-center justify-center gap-1";
+                }
+            });
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // 2C. ALL-APP AUTOMATION HUB ENGINES
+        // ==========================================
+        let lastGeneratedYTScript = "";
+        let cameraStream = null;
+
+        function switchAutoEngine(engineName) {
+            const engines = ['youtube', 'whatsapp', 'calling', 'camera', 'apps'];
+            const activeStyles = {
+                youtube: 'bg-rose-500/20 border-rose-400/50 text-rose-200',
+                whatsapp: 'bg-emerald-500/20 border-emerald-400/50 text-emerald-200',
+                calling: 'bg-cyan-500/20 border-cyan-400/50 text-cyan-200',
+                camera: 'bg-purple-500/20 border-purple-400/50 text-purple-200',
+                apps: 'bg-amber-500/20 border-amber-400/50 text-amber-200'
+            };
+
+            engines.forEach(eng => {
+                const panel = document.getElementById(`auto-engine-${eng}`);
+                const pill = document.getElementById(`auto-pill-${eng}`);
+                if (!panel || !pill) return;
+
+                if (eng === engineName) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('flex');
+                    pill.className = `shrink-0 px-2.5 py-1.5 rounded-lg border text-[11px] font-mono font-semibold flex items-center gap-1 transition-all ${activeStyles[eng]}`;
+                } else {
+                    panel.classList.add('hidden');
+                    panel.classList.remove('flex');
+                    pill.className = "shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-cyan-200 text-[11px] font-mono font-semibold flex items-center gap-1 transition-all";
+                }
+            });
+            lucide.createIcons();
+        }
+
+        function openAutoHubEngine(engineName) {
+            switchDockTab('automation');
+            switchAutoEngine(engineName);
+            showToast(`${engineName.toUpperCase()} Automation Engine Active`);
+        }
+
+        // 1. YouTube Automation Engine
+        async function runYouTubeAutomation(mode) {
+            const topicEl = document.getElementById('yt-topic-input');
+            const topic = (topicEl && topicEl.value.trim()) || "Top 5 AI Tools jo aapka kaam aasaan kar dein";
+            if (isProcessing) return;
+
+            const prompt = mode === 'shorts'
+                ? `YouTube Shorts Automation chalaao topic "${topic}" par: 3 viral hooks, 45-second Hinglish script, aur trending hashtags do.`
+                : `YouTube Full Video Automation chalaao topic "${topic}" par:\n1. 3 High-CTR Viral Titles\n2. Thumbnail Text Idea\n3. SEO Description + 15 Tags\n4. Complete Hinglish Video Script (Hook, Main Points, CTA).`;
+
+            await sendUserMessage(prompt);
+            // Save latest response as downloadable script
+            const lastModelMsg = [...chatHistory].reverse().find(m => m.role === 'model');
+            if (lastModelMsg) {
+                lastGeneratedYTScript = lastModelMsg.parts[0].text;
+            }
+        }
+
+        function searchYouTubeTopic() {
+            const topic = document.getElementById('yt-topic-input')?.value.trim() || "AI automation tutorials";
+            window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(topic)}`, '_blank', 'noopener,noreferrer');
+        }
+
+        function downloadLastYouTubeScript() {
+            const content = lastGeneratedYTScript || [...chatHistory].reverse().find(m => m.role === 'model')?.parts[0]?.text;
+            if (!content) {
+                showToast("Pehle YouTube Automation se script generate karein.");
+                return;
+            }
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Asma_YouTube_Script_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("YouTube Script (.txt) download ho gayi!");
+        }
+
+        // 2. WhatsApp Automation Engine
+        function fillWATemplate(msg) {
+            const msgInput = document.getElementById('wa-msg-input');
+            if (msgInput) msgInput.value = msg;
+        }
+
+        async function aiRewriteWhatsApp(tone) {
+            const msgInput = document.getElementById('wa-msg-input');
+            const raw = msgInput?.value.trim();
+            if (!raw) {
+                showToast("Pehle WhatsApp box mein short message ya topic likhein.");
+                return;
+            }
+            if (isProcessing) return;
+            await sendUserMessage(`Is WhatsApp message ko "${tone}" Hinglish tone mein ready-to-send [DRAFT] block mein likho: "${raw}"`);
+        }
+
+        function launchWhatsAppDirect() {
+            const phoneRaw = document.getElementById('wa-phone-input')?.value.replace(/[^\d]/g, '') || '';
+            const msg = document.getElementById('wa-msg-input')?.value.trim() || 'Namaste!';
+            const waUrl = phoneRaw.length >= 10
+                ? `https://wa.me/${phoneRaw}?text=${encodeURIComponent(msg)}`
+                : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+            showToast("WhatsApp Direct Link launch ho gaya!");
+        }
+
+        // 3. Calling & Speed-Dial Automation Engine
+        let speedDialContacts = JSON.parse(localStorage.getItem('asma_contacts') || '[]');
+        if (speedDialContacts.length === 0) {
+            speedDialContacts = [
+                { id: 1, name: "Emergency / Police", number: "112" },
+                { id: 2, name: "Home / Family", number: "+919000000000" }
+            ];
+            localStorage.setItem('asma_contacts', JSON.stringify(speedDialContacts));
+        }
+
+        function renderSpeedDialContacts() {
+            const list = document.getElementById('speed-dial-list');
+            if (!list) return;
+            list.innerHTML = '';
+            speedDialContacts.forEach(c => {
+                const li = document.createElement('li');
+                li.className = "flex items-center justify-between gap-2 p-2 rounded-xl bg-slate-950/85 border border-cyan-500/20 text-xs";
+                li.innerHTML = `
+                    <div class="min-w-0">
+                        <div class="font-semibold text-slate-100 truncate">${escapeHtml(c.name)}</div>
+                        <div class="text-[10px] font-mono text-cyan-400">${escapeHtml(c.number)}</div>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <button onclick="prepCallScript('${escapeHtml(c.name)}')" title="AI Call Talking Points"
+                            class="px-2 py-1 rounded-lg bg-slate-900 hover:bg-cyan-500/20 border border-cyan-500/30 text-[10px] font-mono text-cyan-200">
+                            Script
+                        </button>
+                        <a href="tel:${encodeURIComponent(c.number)}" onclick="showToast('Dialing ${escapeHtml(c.name)}...')"
+                            class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-[10px] font-hud font-bold flex items-center gap-1">
+                            <i data-lucide="phone" class="w-3 h-3"></i> CALL
+                        </a>
+                        <button onclick="deleteSpeedDialContact(${c.id})" class="p-1 text-slate-500 hover:text-rose-400">
+                            <i data-lucide="x" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+            lucide.createIcons();
+        }
+
+        function saveSpeedDialContact(e) {
+            e.preventDefault();
+            const nameEl = document.getElementById('call-name-input');
+            const numEl = document.getElementById('call-number-input');
+            if (!nameEl.value.trim() || !numEl.value.trim()) return;
+            speedDialContacts.unshift({ id: Date.now(), name: nameEl.value.trim(), number: numEl.value.trim() });
+            localStorage.setItem('asma_contacts', JSON.stringify(speedDialContacts));
+            nameEl.value = '';
+            numEl.value = '';
+            renderSpeedDialContacts();
+            showToast("Contact Speed-Dial mein save ho gaya!");
+        }
+
+        function deleteSpeedDialContact(id) {
+            speedDialContacts = speedDialContacts.filter(c => c.id !== id);
+            localStorage.setItem('asma_contacts', JSON.stringify(speedDialContacts));
+            renderSpeedDialContacts();
+        }
+
+        function prepCallScript(contactName) {
+            triggerQuickCommand(`Mujhe "${contactName}" ko call karni hai. Call par baat karne ke 3 crisp talking points aur opening line Hinglish mein do.`);
+        }
+
+        renderSpeedDialContacts();
+
+        // 4. Camera & Gemini Vision Automation Engine
+        async function startCameraFeed() {
+            const video = document.getElementById('hud-camera-video');
+            const placeholder = document.getElementById('cam-placeholder');
+            const startBtn = document.getElementById('cam-start-btn');
+            const stopBtn = document.getElementById('cam-stop-btn');
+
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+                video.srcObject = cameraStream;
+                video.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                startBtn.classList.add('hidden');
+                stopBtn.classList.remove('hidden');
+                showToast("Live Camera HUD Active!");
+            } catch (err) {
+                showToast("Camera access nahi mila—Photo Upload button use karein.");
+            }
+        }
+
+        function stopCameraFeed() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+            const video = document.getElementById('hud-camera-video');
+            const placeholder = document.getElementById('cam-placeholder');
+            const startBtn = document.getElementById('cam-start-btn');
+            const stopBtn = document.getElementById('cam-stop-btn');
+
+            if (video) video.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+            if (startBtn) startBtn.classList.remove('hidden');
+            if (stopBtn) stopBtn.classList.add('hidden');
+        }
+
+        async function captureAndAnalyzeCamera() {
+            const video = document.getElementById('hud-camera-video');
+            const canvas = document.getElementById('hud-camera-canvas');
+            if (!cameraStream || video.classList.contains('hidden')) {
+                showToast("Pehle START CAM dabayein ya Photo upload karein.");
+                return;
+            }
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+            await analyzeImageWithGemini(base64Data, 'image/jpeg', "Is camera frame mein kya dikh raha hai? Agar koi text, note, ya sawal hai toh use scan karke solve/explain karo Hinglish mein.");
+        }
+
+        function handleImageFileUpload(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const dataUrl = e.target.result;
+                const base64Data = dataUrl.split(',')[1];
+                await analyzeImageWithGemini(base64Data, file.type || 'image/jpeg', "Is uploaded image ko scan karo—jo bhi text, object, document, ya question hai uska smart summary aur action steps Hinglish mein do.");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function analyzeImageWithGemini(base64Data, mimeType, promptText) {
+            if (isProcessing) return;
+            appendUserBubble("📷 [Camera Vision Scan Triggered]");
+            const typingId = appendTypingIndicator();
+            isProcessing = true;
+            updateCoreUIState();
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{
+                        role: "user",
+                        parts: [
+                            { text: promptText },
+                            { inlineData: { mimeType: mimeType, data: base64Data } }
+                        ]
+                    }],
+                    systemInstruction: {
+                        parts: [{ text: PERSONA_PROFILES[currentPersona].instruction }]
+                    }
+                };
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+                const reply = json?.candidates?.[0]?.content?.parts?.[0]?.text || "Image scan complete, par koi clear text nahi mila.";
+                removeTypingIndicator(typingId);
+                appendAsmaBubble(reply);
+                speakText(reply);
+            } catch (err) {
+                removeTypingIndicator(typingId);
+                appendAsmaBubble("Camera Vision scan mein network error aaya. Dobara try karein.");
+            } finally {
+                isProcessing = false;
+                updateCoreUIState();
+            }
+        }
+
+        // 5. Multi-Step Smart Macros
+        async function executeSmartMacro(macroType) {
+            if (macroType === 'morning') {
+                switchDockTab('priorities');
+                await sendUserMessage("Morning Command Macro chalaao: Mere aaj ke locked priorities review karo, ek high-energy morning plan [CHECKLIST] mein do, aur ek motivational quote bolo.");
+            } else if (macroType === 'creator') {
+                openAutoHubEngine('youtube');
+                await sendUserMessage("Creator Blast Macro chalaao: Aaj ke trending AI/Tech topic par ek YouTube Short script + Instagram reel caption + WhatsApp broadcast [DRAFT] banao.");
+            }
+        }
+
+        // Voice Intent Router for Automation Commands
+        function interceptAutomationVoiceIntent(text) {
+            const lower = text.toLowerCase();
+            if (lower.includes('youtube automation') || lower.includes('youtube script')) {
+                openAutoHubEngine('youtube');
+            } else if (lower.includes('whatsapp')) {
+                openAutoHubEngine('whatsapp');
+            } else if (lower.includes('call ') || lower.includes('calling') || lower.includes('dialer')) {
+                openAutoHubEngine('calling');
+            } else if (lower.includes('camera') || lower.includes('scan')) {
+                openAutoHubEngine('camera');
+                startCameraFeed();
+            } else if (lower.includes('all apps') || lower.includes('macro')) {
+                openAutoHubEngine('apps');
+            }
+        }
+<!-- ... existing code ... -->
+        async function sendUserMessage(text) {
+            interceptAutomationVoiceIntent(text);
+            appendUserBubble(text);
+            const typingId = appendTypingIndicator();
+<!-- ... existing code ... -->
